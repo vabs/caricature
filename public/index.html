@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Caricature Studio</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace" aria-labelledby="page-title">
+        <div class="intro">
+          <p class="eyebrow">Caricature Studio</p>
+          <h1 id="page-title">Create a caricature</h1>
+          <p class="summary">Upload a portrait, pick a style, and generate a downloadable caricature. Images are handled for the current request only.</p>
+        </div>
+
+        <form id="caricature-form" class="panel">
+          <label class="upload-area" for="image">
+            <span class="upload-title">Choose image</span>
+            <span id="file-name" class="upload-meta">JPEG, PNG, or WebP up to 10 MB</span>
+            <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp" required>
+          </label>
+
+          <fieldset class="styles">
+            <legend>Style</legend>
+            <label>
+              <input type="radio" name="style" value="friendly-cartoon" checked>
+              <span>Friendly cartoon</span>
+            </label>
+            <label>
+              <input type="radio" name="style" value="editorial-exaggeration">
+              <span>Editorial exaggeration</span>
+            </label>
+            <label>
+              <input type="radio" name="style" value="vintage-comic">
+              <span>Vintage comic</span>
+            </label>
+            <label>
+              <input type="radio" name="style" value="studio-mascot">
+              <span>Studio mascot</span>
+            </label>
+          </fieldset>
+
+          <button id="generate-button" type="submit">Generate</button>
+          <p id="status" class="status" role="status" aria-live="polite"></p>
+        </form>
+
+        <section class="result" aria-label="Generated caricature">
+          <div id="placeholder" class="placeholder">Your generated caricature will appear here.</div>
+          <img id="result-image" alt="Generated caricature preview" hidden>
+          <a id="download-link" class="download" download="caricature.png" hidden>Download PNG</a>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
