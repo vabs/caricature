@@ -2,6 +2,9 @@
 
 A small Express 5 web app for generating caricatures from uploaded images. The server processes uploads in memory, sends the image to a provider adapter, and returns the generated image directly to the browser. It does not persist source images or generated results.
 
+<img width="1200" height="751" alt="UI" src="https://github.com/user-attachments/assets/eca2fdb5-85d1-4689-95c3-a7b9d813a29f" />
+
+
 ## Setup
 
 ```sh
