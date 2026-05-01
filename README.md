@@ -40,7 +40,20 @@ The integration tests use mocked generation providers and do not call OpenAI or 
 
 ## Styles
 
-The style catalog is parsed from `prompt.txt`. Each `STYLE:` entry becomes a UI option with the bullet beneath it as the description.
+The supported caricature styles are:
+
+- `Ink_Wash_Classic`: Expressive ink outlines with soft grayscale washes, paper texture, elegant brush strokes.
+- `Bold_Vector_Pop`: Thick clean outlines, flat bold colors, high contrast, poster-like, minimal shading.
+- `Pencil_Sketch_Studio`: Fine graphite lines, cross-hatching, subtle smudges, sketchbook feel.
+- `Charcoal_Drama`: Deep blacks, smudged charcoal, heavy shadows, dramatic light.
+- `Watercolor_Whimsy`: Loose watercolor blooms, soft edges, gentle color gradients, light paper texture.
+- `Woodcut_Vintage`: Carved line texture, high-contrast black and white, vintage print look.
+- `Comic_Strip_Satire`: Clean comic linework, simple cel shading, punchy expressions, speech-bubble-ready.
+- `Claymation_3D`: Soft clay surfaces, rounded forms, subtle fingerprints, studio lighting.
+- `Lowpoly_Faceted`: Geometric facets, angular planes, sharp edges, vivid but limited palette.
+- `Neon_Retro_Chrome`: 80s airbrush feel, chrome highlights, neon accents, glossy finish.
+
+Each style is exposed by the app and used as the exact `style` value in requests.
 
 ## API
 
