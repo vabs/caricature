@@ -4,11 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --watch src/server.js",
+    "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "test": "vitest run"
   },
   "dependencies": {
+    "@google/genai": "^1.51.0",
     "dotenv": "^16.4.7",
     "express": "^5.0.1",
     "express-rate-limit": "^7.5.0",
@@ -16,6 +17,7 @@
     "openai": "^5.0.0"
   },
   "devDependencies": {
+    "nodemon": "^3.1.14",
     "supertest": "^7.0.0",
     "vitest": "^3.0.0"
   },

@@ -1,29 +1,37 @@
-const styles = [
-  {
-    id: 'friendly-cartoon',
-    label: 'Friendly cartoon',
-    description: 'Warm, playful, polished cartoon exaggeration.',
-    promptPhrase: 'friendly cartoon caricature'
-  },
-  {
-    id: 'editorial-exaggeration',
-    label: 'Editorial exaggeration',
-    description: 'Sharp magazine-style exaggeration with confident linework.',
-    promptPhrase: 'editorial exaggeration caricature'
-  },
-  {
-    id: 'vintage-comic',
-    label: 'Vintage comic',
-    description: 'Classic inked comic style with halftone texture.',
-    promptPhrase: 'vintage comic caricature'
-  },
-  {
-    id: 'studio-mascot',
-    label: 'Studio mascot',
-    description: 'Clean mascot-like caricature suitable for profile images.',
-    promptPhrase: 'studio mascot caricature'
-  }
-];
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const PROMPT_CATALOG_PATH = path.join(__dirname, '..', '..', 'prompt.txt');
+
+function labelFromStyleName(styleName) {
+  return styleName.replaceAll('_', ' ');
+}
+
+function parseStyleCatalog(promptText) {
+  const styleBlocks = promptText.matchAll(
+    /\d+\.\s*STYLE:\s*([A-Za-z0-9_]+)\s*([\s\S]*?)(?=\n\s*\d+\.\s*STYLE:|\n\s*How to use:|$)/g
+  );
+
+  return [...styleBlocks].map((match) => {
+    const id = match[1];
+    const description = match[2].match(/^\s*-\s+(.+)$/m)?.[1]?.trim();
+
+    if (!description) {
+      throw new Error(`Missing description for style ${id}.`);
+    }
+
+    return {
+      id,
+      label: labelFromStyleName(id),
+      description
+    };
+  });
+}
+
+const styles = parseStyleCatalog(fs.readFileSync(PROMPT_CATALOG_PATH, 'utf8'));
 
 export const STYLE_IDS = styles.map((style) => style.id);
 

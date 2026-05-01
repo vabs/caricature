@@ -7,9 +7,10 @@ import {
 
 describe('OpenAI provider', () => {
   test('builds preset-only prompts without user freeform text', () => {
-    const prompt = buildCaricaturePrompt('friendly-cartoon');
+    const prompt = buildCaricaturePrompt('Ink_Wash_Classic');
 
-    expect(prompt).toContain('friendly cartoon caricature');
+    expect(prompt).toContain('STYLE: Ink_Wash_Classic');
+    expect(prompt).toContain('Expressive ink outlines');
     expect(prompt).toContain('Do not add text');
     expect(prompt).not.toContain('freeform');
   });
@@ -27,7 +28,7 @@ describe('OpenAI provider', () => {
     await expect(provider.generateCaricature({
       imageBuffer: Buffer.from([0xff, 0xd8, 0xff]),
       mimeType: 'image/jpeg',
-      style: 'studio-mascot'
+      style: 'Claymation_3D'
     })).resolves.toEqual({
       imageBase64: 'generated-base64',
       mimeType: 'image/png'
@@ -35,7 +36,7 @@ describe('OpenAI provider', () => {
 
     expect(edit).toHaveBeenCalledWith(expect.objectContaining({
       model: 'test-image-model',
-      prompt: expect.stringContaining('studio mascot caricature'),
+      prompt: expect.stringContaining('STYLE: Claymation_3D'),
       size: '1024x1024',
       quality: 'medium',
       n: 1

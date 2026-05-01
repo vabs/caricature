@@ -13,7 +13,7 @@
         <div class="intro">
           <p class="eyebrow">Caricature Studio</p>
           <h1 id="page-title">Create a caricature</h1>
-          <p class="summary">Upload a portrait, pick a style, and generate a downloadable caricature. Images are handled for the current request only.</p>
+          <p class="summary">Upload a portrait, choose a generator and style, then download the result.</p>
         </div>
 
         <form id="caricature-form" class="panel">
@@ -23,27 +23,18 @@
             <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp" required>
           </label>
 
-          <fieldset class="styles">
-            <legend>Style</legend>
-            <label>
-              <input type="radio" name="style" value="friendly-cartoon" checked>
-              <span>Friendly cartoon</span>
-            </label>
-            <label>
-              <input type="radio" name="style" value="editorial-exaggeration">
-              <span>Editorial exaggeration</span>
-            </label>
-            <label>
-              <input type="radio" name="style" value="vintage-comic">
-              <span>Vintage comic</span>
-            </label>
-            <label>
-              <input type="radio" name="style" value="studio-mascot">
-              <span>Studio mascot</span>
-            </label>
+          <fieldset class="providers">
+            <legend>Provider</legend>
+            <div id="provider-options" class="segmented"></div>
           </fieldset>
 
-          <button id="generate-button" type="submit">Generate</button>
+          <fieldset class="styles">
+            <label class="field-label" for="style-select">Style</label>
+            <select id="style-select" name="style" disabled></select>
+            <p id="style-description" class="style-description">Loading styles...</p>
+          </fieldset>
+
+          <button id="generate-button" type="submit" disabled>Generate</button>
           <p id="status" class="status" role="status" aria-live="polite"></p>
         </form>
 

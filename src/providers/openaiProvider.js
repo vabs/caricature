@@ -1,6 +1,8 @@
 import OpenAI, { toFile } from 'openai';
 
-import { getStyle } from '../caricature/styles.js';
+import { buildCaricaturePrompt } from '../caricature/prompt.js';
+
+export { buildCaricaturePrompt } from '../caricature/prompt.js';
 
 function extensionForMimeType(mimeType) {
   if (mimeType === 'image/png') {
@@ -12,22 +14,6 @@ function extensionForMimeType(mimeType) {
   }
 
   return 'jpg';
-}
-
-export function buildCaricaturePrompt(styleId) {
-  const style = getStyle(styleId);
-
-  if (!style) {
-    throw new Error(`Unsupported caricature style: ${styleId}`);
-  }
-
-  return [
-    `Create a ${style.promptPhrase} based on the uploaded reference image.`,
-    'Preserve the person or subject identity, core facial structure, expression, and recognizable features.',
-    'Use tasteful exaggeration without making the result insulting, grotesque, or demeaning.',
-    'Keep the composition centered and suitable for a profile image.',
-    'Do not add text, captions, logos, watermarks, or extra people.'
-  ].join(' ');
 }
 
 export function createOpenAIProvider({ apiKey, model, client } = {}) {

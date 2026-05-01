@@ -9,11 +9,16 @@ npm install
 cp .env.example .env
 ```
 
-Set `OPENAI_API_KEY` in `.env`.
+Set the API key for the provider you want to use. The UI lets users choose
+between OpenAI and Google Gemini per generation request.
 
 Optional environment variables:
 
 - `OPENAI_IMAGE_MODEL`, defaults to `gpt-image-1.5`
+- `IMAGE_PROVIDER`, supported values are `openai` and `google`; `.env.example` selects `openai`
+- `OPENAI_API_KEY`, required when using OpenAI
+- `GOOGLE_API_KEY`, required when `IMAGE_PROVIDER=google`
+- `GOOGLE_IMAGE_MODEL`, defaults to `gemini-2.5-flash-image`
 - `PORT`, defaults to `3000`
 - `MAX_UPLOAD_MB`, defaults to `10`
 
@@ -31,7 +36,11 @@ Open `http://localhost:3000`.
 npm test
 ```
 
-The integration tests use a mocked generation provider and do not call OpenAI.
+The integration tests use mocked generation providers and do not call OpenAI or Google.
+
+## Styles
+
+The style catalog is parsed from `prompt.txt`. Each `STYLE:` entry becomes a UI option with the bullet beneath it as the description.
 
 ## API
 
@@ -40,7 +49,8 @@ The integration tests use a mocked generation provider and do not call OpenAI.
 Multipart fields:
 
 - `image`: JPEG, PNG, or WebP
-- `style`: one of `friendly-cartoon`, `editorial-exaggeration`, `vintage-comic`, `studio-mascot`
+- `provider`: `openai` or `google`
+- `style`: one of the exact `STYLE` names from `prompt.txt`
 
 Success response:
 

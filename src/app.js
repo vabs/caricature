@@ -6,6 +6,7 @@ import rateLimit from 'express-rate-limit';
 import multer from 'multer';
 
 import { listStyles, getStyle } from './caricature/styles.js';
+import { getImageProviderInfo, listImageProviders } from './providers/index.js';
 import { validateUploadedImage } from './uploads/validation.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -33,12 +34,13 @@ function createUpload(maxUploadBytes) {
 
 export function createApp({
   provider,
+  providers,
   config,
   publicDir = DEFAULT_PUBLIC_DIR,
   rateLimit: rateLimitOptions = { windowMs: 60_000, max: 12 }
 }) {
-  if (!provider?.generateCaricature) {
-    throw new Error('A provider with generateCaricature is required.');
+  if (!provider?.generateCaricature && !providers?.getProvider) {
+    throw new Error('A provider with generateCaricature or providers registry is required.');
   }
 
   const app = express();
@@ -64,6 +66,13 @@ export function createApp({
     response.json({ styles: listStyles() });
   });
 
+  app.get('/api/providers', (_request, response) => {
+    response.json({
+      providers: listImageProviders(),
+      defaultProvider: config.imageProvider
+    });
+  });
+
   app.post('/api/caricatures', generationLimiter, upload.single('image'), async (request, response, next) => {
     try {
       const uploadValidation = validateUploadedImage(request.file);
@@ -78,12 +87,27 @@ export function createApp({
       }
 
       const style = typeof request.body.style === 'string' ? request.body.style : '';
+      const providerId = typeof request.body.provider === 'string' && request.body.provider
+        ? request.body.provider
+        : config.imageProvider;
 
       if (!getStyle(style)) {
         return jsonError(response, 400, 'UNSUPPORTED_STYLE', 'Choose one of the supported caricature styles.');
       }
 
-      const result = await provider.generateCaricature({
+      if (!getImageProviderInfo(providerId)) {
+        return jsonError(response, 400, 'UNSUPPORTED_PROVIDER', 'Choose one of the supported image providers.');
+      }
+
+      const selectedProvider = providers?.getProvider
+        ? providers.getProvider(providerId)
+        : provider;
+
+      if (!selectedProvider?.generateCaricature) {
+        return jsonError(response, 400, 'UNSUPPORTED_PROVIDER', 'Choose one of the supported image providers.');
+      }
+
+      const result = await selectedProvider.generateCaricature({
         imageBuffer: request.file.buffer,
         mimeType: request.file.mimetype,
         style

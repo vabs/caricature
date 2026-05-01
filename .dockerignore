@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+
+.git
+.gitignore
+
+Dockerfile
+node_modules
+npm-debug.log*
+
+coverage
+dist
+build
+.DS_Store

@@ -30,13 +30,13 @@ input {
 .shell {
   width: min(1120px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 40px 0;
+  padding: 24px 0;
 }
 
 .workspace {
   display: grid;
-  grid-template-columns: minmax(280px, 420px) minmax(300px, 1fr);
-  gap: 24px;
+  grid-template-columns: minmax(280px, 360px) minmax(360px, 1fr);
+  gap: 16px;
   align-items: start;
 }
 
@@ -45,24 +45,24 @@ input {
 }
 
 .eyebrow {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   color: var(--accent);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
   line-height: 1;
 }
 
 .summary {
   max-width: 680px;
-  margin: 14px 0 0;
+  margin: 10px 0 0;
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   line-height: 1.5;
 }
 
@@ -75,15 +75,15 @@ h1 {
 
 .panel {
   display: grid;
-  gap: 20px;
-  padding: 20px;
+  gap: 14px;
+  padding: 16px;
 }
 
 .upload-area {
   display: grid;
-  gap: 8px;
-  min-height: 132px;
-  padding: 20px;
+  gap: 6px;
+  min-height: 96px;
+  padding: 14px;
   place-content: center;
   text-align: center;
   border: 2px dashed var(--line);
@@ -106,27 +106,73 @@ h1 {
   max-width: 260px;
 }
 
-.styles {
+.styles,
+.providers {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   min-inline-size: 0;
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-.styles legend {
-  margin-bottom: 8px;
+.providers legend,
+.field-label {
+  margin-bottom: 2px;
   font-weight: 800;
 }
 
-.styles label {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  padding: 12px;
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  background: #f2efe8;
   border: 1px solid var(--line);
   border-radius: 8px;
+}
+
+.segmented label {
+  position: relative;
+  display: grid;
+  min-height: 38px;
+  place-items: center;
+  padding: 8px;
+  border-radius: 6px;
+  color: var(--muted);
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+}
+
+.segmented input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.segmented label:has(input:checked) {
+  color: var(--ink);
+  background: var(--panel);
+  box-shadow: 0 1px 3px rgba(29, 29, 27, 0.12);
+}
+
+select {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.style-description {
+  min-height: 44px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.4;
 }
 
 button {
@@ -156,9 +202,11 @@ button:disabled {
 .result {
   display: grid;
   gap: 16px;
-  min-height: 480px;
+  min-height: 430px;
   padding: 20px;
   place-items: center;
+  position: sticky;
+  top: 24px;
 }
 
 .placeholder {
@@ -181,11 +229,15 @@ button:disabled {
 @media (max-width: 760px) {
   .shell {
     width: min(100% - 20px, 560px);
-    padding: 24px 0;
+    padding: 18px 0;
   }
 
   .workspace {
     grid-template-columns: 1fr;
+  }
+
+  .result {
+    position: static;
   }
 
   .result {
