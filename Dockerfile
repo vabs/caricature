@@ -8,7 +8,6 @@ ENV PORT=3000
 COPY package*.json ./
 RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
 
-COPY --chown=node:node prompt.txt ./prompt.txt
 COPY --chown=node:node public ./public
 COPY --chown=node:node src ./src
 
