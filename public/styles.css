@@ -47,7 +47,6 @@ input {
 .eyebrow {
   margin: 0 0 6px;
   color: var(--accent);
-  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -202,7 +201,7 @@ button:disabled {
 .result {
   display: grid;
   gap: 16px;
-  min-height: 430px;
+  min-height: 455px;
   padding: 20px;
   place-items: center;
   position: sticky;
