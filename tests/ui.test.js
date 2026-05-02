@@ -30,4 +30,13 @@ describe('compact UI', () => {
     expect(js).toContain('styleDescription');
     expect(js).toContain('updateStyleDescription');
   });
+
+  test('result rendering does not depend on a removed placeholder element', () => {
+    const html = fs.readFileSync(path.join(publicDir, 'index.html'), 'utf8');
+    const js = fs.readFileSync(path.join(publicDir, 'app.js'), 'utf8');
+
+    expect(html).not.toContain('id="placeholder"');
+    expect(js).not.toContain("querySelector('#placeholder')");
+    expect(js).not.toContain('placeholder.hidden');
+  });
 });

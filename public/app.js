@@ -4,7 +4,6 @@ const fileName = document.querySelector('#file-name');
 const statusEl = document.querySelector('#status');
 const button = document.querySelector('#generate-button');
 const resultImage = document.querySelector('#result-image');
-const placeholder = document.querySelector('#placeholder');
 const downloadLink = document.querySelector('#download-link');
 const providerOptions = document.querySelector('#provider-options');
 const styleSelect = document.querySelector('#style-select');
@@ -112,7 +111,6 @@ form.addEventListener('submit', async (event) => {
     downloadLink.href = dataUrl;
     resultImage.hidden = false;
     downloadLink.hidden = false;
-    placeholder.hidden = true;
     setStatus('Caricature ready.');
   } catch (error) {
     setStatus(error.message, true);

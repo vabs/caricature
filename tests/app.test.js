@@ -41,7 +41,8 @@ describe('Express app', () => {
       .get('/')
       .expect(200);
 
-    expect(response.text).toContain('Create a caricature');
+    expect(response.text).toContain('Caricature Studio');
+    expect(response.text).toContain('choose a generator and style');
   });
 
   test('returns style and provider catalogs for the UI', async () => {
