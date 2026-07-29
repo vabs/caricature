@@ -8,6 +8,8 @@ describe('compact UI', () => {
   test('uses a compact style select with a selected-style description', () => {
     const html = fs.readFileSync(path.join(publicDir, 'index.html'), 'utf8');
 
+    expect(html).toContain('rel="icon"');
+    expect(html).toContain('href="/favicon.svg"');
     expect(html).toContain('id="style-select"');
     expect(html).toContain('name="style"');
     expect(html).toContain('id="style-description"');
