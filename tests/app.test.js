@@ -42,7 +42,7 @@ describe('Express app', () => {
       .expect(200);
 
     expect(response.text).toContain('Caricature Studio');
-    expect(response.text).toContain('choose a generator and style');
+    expect(response.text).toContain('choose a style');
   });
 
   test('returns style and provider catalogs for the UI', async () => {

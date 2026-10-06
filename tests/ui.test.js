@@ -16,13 +16,13 @@ describe('compact UI', () => {
     expect(html).not.toContain('id="style-options"');
   });
 
-  test('renders providers as a segmented control', () => {
+  test('hides provider selection and always submits Google Gemini', () => {
     const html = fs.readFileSync(path.join(publicDir, 'index.html'), 'utf8');
-    const css = fs.readFileSync(path.join(publicDir, 'styles.css'), 'utf8');
+    const js = fs.readFileSync(path.join(publicDir, 'app.js'), 'utf8');
 
-    expect(html).toContain('class="segmented"');
-    expect(css).toContain('.segmented');
-    expect(css).toContain('grid-template-columns: repeat(2, minmax(0, 1fr))');
+    expect(html).toContain('<input type="hidden" name="provider" value="google">');
+    expect(html).not.toContain('id="provider-options"');
+    expect(js).not.toContain('/api/providers');
   });
 
   test('client script populates the select and updates its description', () => {

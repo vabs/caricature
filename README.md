@@ -13,8 +13,8 @@ npm install
 cp .env.example .env
 ```
 
-Set the API key for the provider you want to use. The UI lets users choose
-between OpenAI and Google Gemini per generation request.
+Set the API key for the provider you want to use. The UI currently always
+generates with Google Gemini; the OpenAI adapter remains available via the API.
 
 Optional environment variables:
 

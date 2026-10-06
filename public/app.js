@@ -5,7 +5,6 @@ const statusEl = document.querySelector('#status');
 const button = document.querySelector('#generate-button');
 const resultImage = document.querySelector('#result-image');
 const downloadLink = document.querySelector('#download-link');
-const providerOptions = document.querySelector('#provider-options');
 const styleSelect = document.querySelector('#style-select');
 const styleDescription = document.querySelector('#style-description');
 let styles = [];
@@ -18,24 +17,6 @@ function setStatus(message, isError = false) {
 fileInput.addEventListener('change', () => {
   fileName.textContent = fileInput.files[0]?.name ?? 'JPEG, PNG, or WebP up to 10 MB';
 });
-
-function renderProviderOptions(container, items, defaultValue) {
-  container.replaceChildren(...items.map((item, index) => {
-    const label = document.createElement('label');
-    const input = document.createElement('input');
-    const title = document.createElement('span');
-
-    input.type = 'radio';
-    input.name = 'provider';
-    input.value = item.id;
-    input.checked = item.id === defaultValue || (!defaultValue && index === 0);
-    label.title = item.description;
-    title.textContent = item.label;
-    label.append(input, title);
-
-    return label;
-  }));
-}
 
 function updateStyleDescription() {
   const selectedStyle = styles.find((style) => style.id === styleSelect.value);
@@ -58,22 +39,13 @@ function renderStyleOptions(items) {
 
 async function loadCatalogs() {
   try {
-    const [providersResponse, stylesResponse] = await Promise.all([
-      fetch('/api/providers'),
-      fetch('/api/styles')
-    ]);
-    const providersPayload = await providersResponse.json();
+    const stylesResponse = await fetch('/api/styles');
     const stylesPayload = await stylesResponse.json();
 
-    if (!providersResponse.ok || !stylesResponse.ok) {
+    if (!stylesResponse.ok) {
       throw new Error('Unable to load generation options.');
     }
 
-    renderProviderOptions(
-      providerOptions,
-      providersPayload.providers,
-      providersPayload.defaultProvider
-    );
     renderStyleOptions(stylesPayload.styles);
     button.disabled = false;
   } catch (error) {

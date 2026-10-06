@@ -105,8 +105,7 @@ h1 {
   max-width: 260px;
 }
 
-.styles,
-.providers {
+.styles {
   display: grid;
   gap: 8px;
   min-inline-size: 0;
@@ -115,45 +114,9 @@ h1 {
   border: 0;
 }
 
-.providers legend,
 .field-label {
   margin-bottom: 2px;
   font-weight: 800;
-}
-
-.segmented {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4px;
-  padding: 4px;
-  background: #f2efe8;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-}
-
-.segmented label {
-  position: relative;
-  display: grid;
-  min-height: 38px;
-  place-items: center;
-  padding: 8px;
-  border-radius: 6px;
-  color: var(--muted);
-  font-weight: 800;
-  text-align: center;
-  cursor: pointer;
-}
-
-.segmented input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.segmented label:has(input:checked) {
-  color: var(--ink);
-  background: var(--panel);
-  box-shadow: 0 1px 3px rgba(29, 29, 27, 0.12);
 }
 
 select {

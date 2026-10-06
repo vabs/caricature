@@ -13,7 +13,7 @@
       <section class="workspace" aria-labelledby="page-title">
         <div class="intro">
           <h1 id="page-title" class="eyebrow">Caricature Studio</h1>
-          <p class="summary">Upload a portrait, choose a generator and style, then download the result.</p>
+          <p class="summary">Upload a portrait, choose a style, then download the result.</p>
         </div>
 
         <form id="caricature-form" class="panel">
@@ -23,10 +23,7 @@
             <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp" required>
           </label>
 
-          <fieldset class="providers">
-            <legend>Provider</legend>
-            <div id="provider-options" class="segmented"></div>
-          </fieldset>
+          <input type="hidden" name="provider" value="google">
 
           <fieldset class="styles">
             <label class="field-label" for="style-select">Style</label>
